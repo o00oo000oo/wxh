@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html style="height: 100%;">
+<head lang="en">
+<meta charset="UTF-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>wxh弹框</title>
+<link rel="stylesheet" href="css/common.css">
+
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/alertPopShow.js"></script>
+<script type="text/javascript" src="js/demo.js"></script>
+
+</head>
+
+<body>
+
+
+	<input type="textbox" value="http://www.baidu.com" id="url1" />
+	<input type="textbox" value="今天天气很好" id="title1" />
+	<input type="textbox" value="中移在线服务有限公司" id="comp1" /><br/>
+	
+	<input class="aysnc" type="button" value="按钮1" 
+		confirm="确定要执行后台吗?" 
+		url="./login_save.asp?title={title1}&comp={comp1}&url={url1}" />
+
+
+	<hr/>
+
+
+	<input type="textbox" value="http://www.hao123.com" id="url2" />
+	<input type="textbox" value="我很好，你呢？" id="title2" />
+	<input type="textbox" value="中信银行" id="comp2" /><br/>
+
+	<a class="aysnc" href='#'
+		confirm="到后台去?" 
+		url="./login_save.asp?title={title2}&comp={comp2}&url={url2}">超链接按钮</a>
+
+</body>
+</html>
+
