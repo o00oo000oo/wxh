@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html style="height: 100%;">
+<head lang="en">
+<meta charset="UTF-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>wxh自动排版</title>
+<link rel="stylesheet" href="css/common.css">
+<script type="text/javascript">
+
+//自动排版
+function format(start){
+	start = start || '    ';
+	var box = document.getElementById('content');
+	var text = box.value;
+				//处理空格
+	text =  text.replace(/([^a-zA-Z\s]+)([ ]+)([^a-zA-Z\s]+)/ig, '$1$3')
+				.replace(/([a-zA-Z]+)([ ]+)([a-zA-Z]+)/ig, '$1 $3')
+				.replace(/([^a-zA-Z\s]+)([ ]+)([a-zA-Z]+)/ig, '$1 $3')
+				.replace(/([a-zA-Z]+)([ ]+)([^a-zA-Z\s]+)/ig, '$1 $3')
+				.replace(/[ ]{2,}/ig, '') //重要，防止重复增加行首空格
+				//给行首加空格
+				.replace(/(\r\n|\n)+/img,  function(match_str) {
+					//正则模式替换, 匹配到就会进来，  不一定需要有捕获才能进来
+					var rep = '';
+					if(/(\r\n)+/ig.test(match_str)) rep = '\r\n' + start;
+					else if(/\n+/ig.test(match_str)) rep = '\n' + start;
+					return rep;
+				})
+				//去掉首尾空字符
+				.replace(/^\s*|\s*$/ig, '');
+	//第一行空2格
+	box.value = start + text;
+}
+</script>
+
+</head>
+
+<body>
+
+<textarea id="content" cols="200" rows="30">中标麒麟本来是基于freeBSD修改，为什么后来换用linux内核了呢？近日Linux Sudo被爆高风险漏洞（漏洞编号：CVE-2017-1000367）RedHat5root用户下，编辑/usr/share/gdm/default.cof居然提示“为只读文件</textarea>
+
+<br/>
+<br/>
+<input type="button" value="自动排版" onclick="format()" />
+
+</body>
+</html>
+
