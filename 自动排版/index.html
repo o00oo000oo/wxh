@@ -19,19 +19,22 @@ function format(start, do_html_filt){
 	//过滤html代码
 	if(do_html_filt) {//仅适用于编辑器生成的html
 		text = text
+			.replace(/<br \/>|<br>/ig, '\r\n')
 			.replace(/\/>/ig, '/>\r\n')
 			.replace(/&[a-zA-Z0-9]+;/ig, '') //删除特殊字符 如:&ngsp;
 			.replace(/<[^>]+>/g,'');//去掉所有的html标记
 	}
-	alert(text);
 	//处理空格和换行
-	text =  text.replace(/([^a-zA-Z\s]+)([ ]+)([^a-zA-Z\s]+)/ig, '$1$3')
+
+	//把所有除了换行外的空字符，换成空格，下面统一处理
+	text =  text.replace(/[\v\f\t\u3000\u0020\u0009\u000d]/ig, ' ')
+				.replace(/([^a-zA-Z\s]+)([ ]+)([^a-zA-Z\s]+)/ig, '$1$3')
 				.replace(/([a-zA-Z]+)([ ]+)([a-zA-Z]+)/ig, '$1 $3')
 				.replace(/([^a-zA-Z\s]+)([ ]+)([a-zA-Z]+)/ig, '$1 $3')
 				.replace(/([a-zA-Z]+)([ ]+)([^a-zA-Z\s]+)/ig, '$1 $3')
-				.replace(/[ ]{2,}/ig, '') //重要，防止重复增加行首空格
+				.replace(/(^[ ]+|[ ]{2,})/img, '') //重要，防止重复增加行首空格
 				//给行首加空格
-				.replace(/(\r\n|\n)+/img,  function(match_str) {
+				.replace(/(\r\n|\n)+/ig,  function(match_str) {
 					//正则模式替换, 匹配到就会进来，  不一定需要有捕获才能进来
 					var rep = '';
 					if(/(\r\n)+/ig.test(match_str)) rep = '\r\n' + start;
@@ -49,7 +52,7 @@ function format(start, do_html_filt){
 
 <body>
 
-<textarea id="content" cols="200" rows="30">中标麒麟本来是基于freeBSD修改，为什么后来换用linux内核了呢？近日Linux Sudo被爆高风险漏洞（漏洞编号：CVE-2017-1000367）RedHat5root用户下，编辑/usr/share/gdm/default.cof居然提示“为只读文件</textarea>
+<textarea id="content" cols="200" rows="30"></textarea>
 
 <br/>
 <br/>
